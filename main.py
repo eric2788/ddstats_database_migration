@@ -1,7 +1,7 @@
-from cmath import log
-import logging
+from log import logger
 
 if __name__ == '__main__':
-    logging.info("The Script Is Working.")
-    logging.warning("However, you didn't specific a script to run.")
-    logging.warning("Please specify a script to run via changing environment variable: MAIN_PY")
+    logger.info("The Script Is Working.")
+    logger.warning("However, you didn't specific a script to run.")
+    logger.warning(
+        "Please specify a script to run via changing environment variable: MAIN_PY")
