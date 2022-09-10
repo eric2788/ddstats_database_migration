@@ -25,5 +25,5 @@ if __name__ == '__main__':
     for row in rows:
         values.append(row)
     with pgsql.get_connection() as cursor:
-        cursor.executemany('insert into last_listens values (%s, %s, %s) on conflict(uid) do nothing', values)
+        cursor.executemany('insert into last_listens values (%s, %s) on conflict(uid) do nothing', values)
     logger.info("data inserted.")
