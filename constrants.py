@@ -13,6 +13,7 @@ PGSQL_PORT = os.getenv('PGSQL_PORT', '5432')
 PGSQL_USER = os.getenv('PGSQL_USER', 'postgres')
 PGSQL_PASSWORD = os.getenv('PGSQL_PASSWORD', '')
 
+SLEEP = os.getenv('SLEEP', '0')
 
 # INSERT FROM AT LEAST THIS ID
 MIN_BEHAVIOUR_ID = os.getenv('MIN_BEHAVIOUR_ID', '1')

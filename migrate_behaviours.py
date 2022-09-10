@@ -2,8 +2,8 @@ import sys
 import pgsql
 import mysql
 from log import logger
-# from time import sleep
-from constrants import MIN_BEHAVIOUR_ID
+from time import sleep
+from constrants import MIN_BEHAVIOUR_ID, SLEEP
 
 
 def create_pgsql_table():
@@ -37,8 +37,14 @@ if __name__ == '__main__':
     max_id = int(maxIdStr)
     logger.info("max = %s, min = %s", max_id, min_id)
     values = []
+
+    sleep_time = float(SLEEP)
+
     for i in range(min_id, max_id+1):
-        # sleep(0.5)
+
+        if sleep_time > 0:
+            sleep(sleep_time)
+
         row = mysql.select_one('select * from behaviours where id = %s', (i,))
         if not row:
             logger.warning("cannot find data with id %s, ignored.", i)
