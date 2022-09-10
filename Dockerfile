@@ -10,5 +10,5 @@ COPY *.py .
 
 ENV MAIN_PY="main.py"
 
-CMD [ "python3", ${MAIN_PY} ]
+CMD [ "/bin/sh", "-c", "python3 ${MAIN_PY}"]
 
