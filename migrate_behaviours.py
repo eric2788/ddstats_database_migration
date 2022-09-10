@@ -2,7 +2,7 @@ import sys
 import pgsql
 import mysql
 from log import logger
-from time import sleep
+# from time import sleep
 from constrants import MIN_BEHAVIOUR_ID
 
 
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     logger.info("max = %s, min = %s", max_id, min_id)
     values = []
     for i in range(min_id, max_id+1):
-        sleep(0.5)
+        # sleep(0.5)
         row = mysql.select_one('select * from behaviours where id = %s', (i,))
         if not row:
             logger.warning("cannot find data with id %s, ignored.", i)
