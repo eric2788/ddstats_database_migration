@@ -50,7 +50,7 @@ if __name__ == '__main__':
             logger.warning("cannot find data with id %s, ignored.", i)
             continue
         values.append(row)
-        logger.info("successfully appended data with id %s", i)
+        # logger.info("successfully appended data with id %s", i)
     logger.info("dumping to pgsql database...")
     with pgsql.get_connection() as cursor:
         cursor.executemany('insert into values (%s, %s, %s, %s, %s, %s, %s, %s) on conflict (id) do nothing', values)
