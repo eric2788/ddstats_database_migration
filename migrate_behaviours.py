@@ -60,3 +60,7 @@ if __name__ == '__main__':
             dump_database(values)
             logger.info('successfully dumped.')
             values = []
+    if len(values) > 0:
+        logger.info('ready to dump remaining %d records', len(values))
+        dump_database(values)
+        logger.info('successfully dumped.')
