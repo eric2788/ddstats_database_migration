@@ -14,6 +14,7 @@ PGSQL_USER = os.getenv('PGSQL_USER', 'postgres')
 PGSQL_PASSWORD = os.getenv('PGSQL_PASSWORD', '')
 
 SLEEP = os.getenv('SLEEP', '0')
+INSERT_RATE = os.getenv('INSERT_RATE', '1000')
 
 # INSERT FROM AT LEAST THIS ID
 MIN_BEHAVIOUR_ID = os.getenv('MIN_BEHAVIOUR_ID', '1')

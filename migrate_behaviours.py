@@ -1,9 +1,9 @@
 import sys
+from time import sleep
 import pgsql
 import mysql
 from log import logger
-from time import sleep
-from constrants import MIN_BEHAVIOUR_ID, SLEEP
+from constrants import INSERT_RATE, MIN_BEHAVIOUR_ID, SLEEP
 
 
 def create_pgsql_table():
@@ -23,9 +23,20 @@ def create_pgsql_table():
             );
         """)
 
+def dump_database(values: list):
+    logger.info("dumping to pgsql database...")
+    with pgsql.get_connection() as cursor:
+        cursor.executemany('insert into values (%s, %s, %s, %s, %s, %s, %s, %s) on conflict (id) do nothing', values)
+    logger.info("successfully dumped.")
+
 
 # huge data records so I can't select *
 if __name__ == '__main__':
+
+    sleep_time = float(SLEEP)
+    interval = int(INSERT_RATE)
+    min_id = int(MIN_BEHAVIOUR_ID)
+
     create_pgsql_table()
     logger.info("pgsql table created")
     logger.info('finding max id and min id...')
@@ -33,25 +44,19 @@ if __name__ == '__main__':
     if not result:
         sys.exit(1)
     maxIdStr = result[0]
-    min_id = int(MIN_BEHAVIOUR_ID)
     max_id = int(maxIdStr)
     logger.info("max = %s, min = %s", max_id, min_id)
     values = []
-
-    sleep_time = float(SLEEP)
-
     for i in range(min_id, max_id+1):
-
         if sleep_time > 0:
             sleep(sleep_time)
-
         row = mysql.select_one('select * from behaviours where id = %s', (i,))
         if not row:
             logger.warning("cannot find data with id %s, ignored.", i)
             continue
         values.append(row)
-        # logger.info("successfully appended data with id %s", i)
-    logger.info("dumping to pgsql database...")
-    with pgsql.get_connection() as cursor:
-        cursor.executemany('insert into values (%s, %s, %s, %s, %s, %s, %s, %s) on conflict (id) do nothing', values)
-    logger.info("successfully dumped.")
+        if len(values) >= interval:
+            logger.info('ready to dump %d records (to %d)', len(values), i)
+            dump_database(values)
+            logger.info('successfully dumped.')
+            values = []
