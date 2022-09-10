@@ -18,7 +18,7 @@ def create_pgsql_table():
                 display text not null,
                 image text default null,
                 price double precision default 0,
-                constraint behaviours_uid_fkey foreign key (uid) references vups (uid) on delete cascade
+                constraint behaviours_uid_fkey foreign key (uid) references vups (uid) on delete cascade,
                 constraints behaviours_target_uid_fkey foreign key (target_uid) references vups (uid) on delete cascade
             );
         """)
