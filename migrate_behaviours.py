@@ -10,7 +10,7 @@ def create_pgsql_table():
     with pgsql.get_connection() as c:
         c.execute("""
             create table if not exists behaviours (
-                id serial primary key,
+                id bigserial primary key,
                 uid bigint not null,
                 created_at timestamp not null,
                 target_uid bigint not null,
