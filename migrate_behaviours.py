@@ -23,10 +23,10 @@ def create_pgsql_table():
             );
         """)
 
-def dump_database(values: list):
+def dump_database(records: list):
     logger.info("dumping to pgsql database...")
     with pgsql.get_connection() as cursor:
-        cursor.executemany('insert into values (%s, %s, %s, %s, %s, %s, %s, %s) on conflict (id) do nothing', values)
+        cursor.executemany('insert into values (%s, %s, %s, %s, %s, %s, %s, %s) on conflict (id) do nothing', records)
     logger.info("successfully dumped.")
 
 
