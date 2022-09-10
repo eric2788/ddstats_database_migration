@@ -26,7 +26,7 @@ def create_pgsql_table():
 def dump_database(records: list):
     logger.info("dumping to pgsql database...")
     with pgsql.get_connection() as cursor:
-        cursor.executemany('insert into values (%s, %s, %s, %s, %s, %s, %s, %s) on conflict (id) do nothing', records)
+        cursor.executemany('insert into behaviours values (%s, %s, %s, %s, %s, %s, %s, %s) on conflict (id) do nothing', records)
     logger.info("successfully dumped.")
 
 
